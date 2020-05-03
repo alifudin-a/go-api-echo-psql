@@ -22,13 +22,13 @@ func Login(c echo.Context) (err error) {
 	password := c.FormValue("password")
 
 	// Throws unauthorized error
-	if username != "jon" || password != "shhh!" {
+	if username != "alifudin" || password != "1234567" {
 		return echo.ErrUnauthorized
 	}
 
 	// Set custom claims
 	claims := &JwtCustomClaims{
-		"Jon Snow",
+		"Alifudin",
 		true,
 		jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(time.Hour * 72).Unix(),
