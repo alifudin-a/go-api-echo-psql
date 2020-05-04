@@ -14,6 +14,7 @@ import (
 func GetEmployee(c echo.Context) (err error) {
 
 	db := database.OpenDB()
+	defer db.Close()
 
 	id := c.Param("id")
 	emp := model.Employee{}

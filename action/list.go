@@ -14,6 +14,7 @@ import (
 func GetEmployees(c echo.Context) (err error) {
 
 	db := database.OpenDB()
+	defer db.Close()
 
 	limit, _ := strconv.Atoi(c.QueryParam("pageSize"))
 	if limit == 0 {

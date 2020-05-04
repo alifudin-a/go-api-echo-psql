@@ -12,6 +12,7 @@ import (
 func UpdateEmployee(c echo.Context) (err error) {
 
 	db := database.OpenDB()
+	defer db.Close()
 
 	emp := new(model.Employee)
 	if err = c.Bind(emp); err != nil {

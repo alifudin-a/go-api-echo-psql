@@ -13,6 +13,7 @@ import (
 func DeleteEmployee(c echo.Context) (err error) {
 
 	db := database.OpenDB()
+	defer db.Close()
 
 	id := c.Param("id")
 
