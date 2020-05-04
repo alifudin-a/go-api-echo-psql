@@ -3,6 +3,7 @@ package action
 import (
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/alifudin-a/go-api-echo-psql/database"
 	"github.com/alifudin-a/go-api-echo-psql/model"
@@ -14,9 +15,13 @@ func GetEmployees(c echo.Context) (err error) {
 
 	db := database.OpenDB()
 
-	sqlStatement := "SELECT * FROM employees ORDER BY id"
+	limit, _ := strconv.Atoi(c.QueryParam("pageSize"))
+	if limit == 0 {
+		limit = 10
+	}
 
-	rows, err := db.Query(sqlStatement)
+	sqlStatement := "SELECT * FROM employees ORDER BY id LIMIT $1"
+	rows, err := db.Query(sqlStatement, limit)
 	if err != nil {
 		log.Println(err)
 		return c.JSON(http.StatusCreated, rows)
